@@ -63,7 +63,9 @@ function sendFile(file) {
             share.dataset.state = 'selected';
             clearCommentForms();
             webSocket();
-            location.search = `?${imageId}`;
+            if(!location.search) {
+                location.search = `?${imageId}`;
+            }   
         } else {
             error.classList.remove('hidden');
             errorMessage.innerText = `Произошла ошибка ${xhr.status}! ${xhr.statusText}... Повторите попытку позже... `;
@@ -115,7 +117,7 @@ if (location.search) {
         menu.dataset.state = 'selected';
         comments.dataset.state = 'selected';
     }
-    url.value = window.location.href + '&share';
+    url.value = window.location.href;
 
     }
     console.log(`Перехожу по ссылке ${`\`${location.origin + location.pathname}${location.search}\``}`);
@@ -139,14 +141,15 @@ function getShareData(id) {
 
 function loadShareData(result) {
     image.src = result.url;
-    url.value = `${location.href}` + '&share';
     imageId = result.id;
     if(href.indexOf('&share') == -1) {
+        url.value = `${location.href}` + '&share';
         menu.dataset.state = 'selected';
         share.dataset.state = 'selected';        
     } else {
         menu.dataset.state = 'selected';
-        comments.dataset.state = 'selected'; 
+        comments.dataset.state = 'selected';
+        formContainer.style.zIndex = '2'; 
     }
 
 
