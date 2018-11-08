@@ -222,15 +222,19 @@ function sendMask(event) {
 }
 
 function pullComments(result) {
-    console.log(result);
+//    console.log(result.id);
+//    console.log(commentId);
+    if(commentId === result.id) {
+        return;
+    }
+    globalCommentsArray.push(result);
     countComments = 0;
-
+    commentId = result.id;
     const countCurrentComments = document.getElementsByClassName('comment').length - document.getElementsByClassName('comment load').length;
     needReload = (countComments === countCurrentComments) ? false : true;
-    console.log(countComments, countCurrentComments);
 
     if (result) {
-        createCommentForm([result]);
+        createCommentsArray(globalCommentsArray);
     }
 
     if (document.getElementById('comments-off').checked) {

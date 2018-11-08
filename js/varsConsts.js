@@ -22,6 +22,7 @@ const comments = document.querySelector('.comments');
 const commentsForm = document.querySelectorAll('.comments__form');
 const commentsOn = document.getElementById('comments-on');
 const commentsOff = document.getElementById('comments-off');
+const fileInput = document.createElement('input');
 
 //------------------SERVER-------------------------//
 
@@ -34,6 +35,8 @@ const share = document.querySelector('.share');
 const copy = document.querySelector('.menu_copy');
 
 let connection;
+let needReload = false;
+let commentId;
 let imageId;
 
 //------------------COMMENTS and DRAWING------------------------//
@@ -44,6 +47,7 @@ const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 const colorButtons = document.querySelector('.draw-tools');
 
+let globalCommentsArray = [];
 let countComments;
 let curves = [];
 let drawing = false;
