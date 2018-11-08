@@ -1,6 +1,6 @@
 createFormContainer();
 formContainer.addEventListener('click', createNewComment);
-document.querySelector('.app').addEventListener('click', sendingComment);
+wrap.addEventListener('click', sendingComment);
 comments.addEventListener('click', () => {formContainer.style.zIndex = '2'});
 document.addEventListener('click', closeForm);
 document.addEventListener('click', markerClick);
@@ -21,7 +21,6 @@ function createFormContainer() {
 function removeEmptyComment() {
     const isNewComment = document.getElementsByClassName('comments__form new')[0];
     if (isNewComment) {
-       // document.querySelector('.app').removeChild(isNewComment);
        formContainer.removeChild(isNewComment);
     }
 }
@@ -39,16 +38,6 @@ function closeAllForms() {
     }
 }
 
-
-/*function clearForms() {
-    const forms = document.querySelectorAll('.comments__form');
-    for (const form of forms) {
-        //document.querySelector('.app').removeChild(form);
-        app.removeChild(form);
-    }
-}*/
-
-
 function createNewComment(event) {
     console.log(event.target);
     console.log(event.currentTarget);
@@ -56,7 +45,7 @@ function createNewComment(event) {
     if (event.target != formContainer) {
         return;
     }
-    const isCommentsOn = document.getElementById('comments-on').checked;
+    const isCommentsOn = commentsOn.checked;
     if (comments.dataset.state === 'selected' && isCommentsOn) {
         const app = document.querySelector('.app');
         removeEmptyComment();
@@ -140,13 +129,15 @@ function createCommentsArray(comments) {
         commentArray.push(comments[comment]);
     }
     clearForms();
-   console.log('4',commentArray);
-    createCommentForm(commentArray);
+    console.log('4',commentArray);
+    globalCommentsArray = commentArray;
+    createCommentForm(globalCommentsArray);
 }
 
 
 function createCommentForm(comments) {
     console.log(comments);
+    console.log(comments.length);
     const app = document.querySelector('.app');
 
     for (let comment of comments) {
